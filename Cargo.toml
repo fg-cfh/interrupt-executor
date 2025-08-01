@@ -1,0 +1,28 @@
+[package]
+name = "interrupt-executor"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+cortex-m = { version = "0.7", features = [
+    "inline-asm",
+    "critical-section-single-core",
+] }
+cortex-m-rt = "0.7"
+critical-section = "1"
+cty = "0.2"
+fugit = "0.3"
+nrf52840-pac = { version = "0.12", features = ["rt"] }
+portable-atomic = { version = "1", features = ["require-cas"] }
+static_cell = "2"
+
+rtos-trace = { version = "0.2", optional = true }
+systemview-target = { version = "0.2", features = [
+    "callbacks-app",
+], optional = true }
+
+[features]
+rtos-trace = ["dep:rtos-trace", "dep:systemview-target"]
+
+[profile.release]
+debug = true
